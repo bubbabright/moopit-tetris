@@ -1,0 +1,15 @@
+; Records for moopit.fun needed by Moopit Tetris.
+; Import in Cloudflare: moopit.fun -> DNS -> Records -> Import and Export -> Import.
+; Cloudflare only reads the record lines (it ignores SOA/NS), and the
+; cf-proxied:false tag keeps each one DNS-only (grey cloud), which is required.
+;
+; snake.moopit.fun already exists. The tetris CNAME target is only known after
+; the CloudFront stack is deployed - it is added below once that is done.
+$ORIGIN moopit.fun.
+$TTL 300
+
+; ACM certificate validation for *.moopit.fun (covers every future subdomain too)
+_ccd01dca0e92ede1fc24176755883f21   IN CNAME   _16152b0410b906250f9842ce924b17d1.wzccmgtwzk.acm-validations.aws.   ; cf_tags=cf-proxied:false
+
+; The site
+tetris   IN CNAME   d15g7vxj83lyon.cloudfront.net.   ; cf_tags=cf-proxied:false
